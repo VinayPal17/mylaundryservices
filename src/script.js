@@ -11,13 +11,13 @@ function addItem(serviceId,Itemname,Itemprice){
         cartItems.push({id:serviceId,name:Itemname,price:Itemprice});
         totalAmount += Itemprice;
         button.innerHTML = `<span>Remove Item  <i class="fa-solid fa-circle-minus"></i></span>`;
-        button.className = "flex justify-center items-center gap-2 bg-red-100 text-red-500 px-3 py-2 rounded-xl cursor-pointer";
+        button.className = "add-btn flex justify-center items-center gap-2 bg-red-100 text-red-500 px-3 py-2 rounded-xl cursor-pointer outline-0";
     }   
     else{
         totalAmount -= cartItems[index].price;
         cartItems.splice(index,1);
         button.innerHTML = `<span>Add Item  <i class="fa-solid fa-circle-plus"></i></span>`;
-        button.className = "flex justify-center items-center gap-2 bg-gray-200 text-gray-800 px-6 py-2 rounded-xl cursor-pointer";
+        button.className = "add-btn flex justify-center items-center gap-2 bg-gray-200 text-gray-800 px-6 py-2 rounded-xl cursor-pointer outline-0";
     }
 
     updateCartUI();
@@ -162,13 +162,30 @@ bookBtn.addEventListener("click", function(e){
     const emailAdd = document.getElementById("emailAddress").value;
     const phoneNum = document.getElementById("phoneNumber").value;
 
+    
+
+    
     if (fName === "" || emailAdd === "" || phoneNum === "") {
         showMessage(`${infoSym} Please fill all the field to book service.`,"emptyField")
         return;
     }
 
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailAdd)) {
+        
+        showMessage(`${infoSym} Please enter valid email address!`,"error");
+        return;
+    }
+   
+
+
+    if (phoneNum.length !== 10) {
+        
+        showMessage(`${infoSym} Phone number must be 10 digits!`,"error");
+        return;
+    }
     
 
+    
     const serviceList = cartItems.map((item,i) =>
        ` ${i+1}. ${item.name} - ${item.price}`
     ).join("\n");
@@ -184,24 +201,34 @@ bookBtn.addEventListener("click", function(e){
 
     
     
-    emailjs.send("service_aoow97q","template_nwrvf1g",completeServiceDetail).then(() =>{
+    emailjs.send("service_aoow97q","template_nwrvf1g",completeServiceDetail).then((res) =>{
 
-       showMessage(`${infoSym} Thank you For Booking the Service, We will get back to you soon!`,"success");
+       
 
-       cartItems = [];
+    //    console.log(res);
+       if(res.text === "OK"){
+
+        showMessage(`${infoSym} Thank you For Booking the Service, We will get back to you soon!`,"success");
+
+        cartItems = [];
        totalAmount = 0;
 
-       fName.value = "";
-       emailAdd.value = "";
-       phoneNum.value = "";
+       document.getElementById("fullName").value = "";
+       document.getElementById("emailAddress").value = "";
+       document.getElementById("phoneNumber").value = "";
+       
 
        document.querySelectorAll(".add-btn").forEach(btn => {
           btn.innerHTML = `<span>Add Item  <i class="fa-solid fa-circle-plus"></i></span>`;
-          btn.className = "flex justify-center items-center gap-2 bg-gray-300 text-black px-6 py-2 rounded-xl";
+          btn.className = "add-btn flex justify-center items-center gap-2 bg-gray-300 text-black px-6 py-2 rounded-xl cursor-pointer outline-0";
        });
 
        updateCartUI();
        updateBookSericesForm();
+        
+       }
+
+       
     }).catch(() => {
 
         showMessage(`${infoSym} Booking Failed!`,"error");
