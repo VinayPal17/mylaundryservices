@@ -66,31 +66,13 @@ function updateCartUI(){
     
 
     if(cartItems.length !== 0){
-        // fullName.disabled = false;
-        // emailAddress.disabled = false;
-        // phoneNumber.disabled = false;
         bookBtn.disabled = false;
-        // fullName.classList.remove("bg-gray-300");
-        // emailAddress.classList.remove("bg-gray-300");
-        // phoneNumber.classList.remove("bg-gray-300");
-        // fullName.classList.remove("cursor-not-allowed");
-        // emailAddress.classList.remove("cursor-not-allowed");
-        // phoneNumber.classList.remove("cursor-not-allowed");
         bookBtn.classList.remove("opacity-50");
         bookBtn.classList.remove("cursor-not-allowed");
         bookBtn.classList.add("cursor-pointer");
     }
     else{
-        // fullName.disabled = true;
-        // emailAddress.disabled = true;
-        // phoneNumber.disabled = true;
         bookBtn.disabled = true;
-        // fullName.classList.add("bg-gray-300");
-        // emailAddress.classList.add("bg-gray-300");
-        // phoneNumber.classList.add("bg-gray-300");
-        // fullName.classList.add("cursor-not-allowed");
-        // emailAddress.classList.add("cursor-not-allowed");
-        // phoneNumber.classList.add("cursor-not-allowed");
         bookBtn.classList.add("opacity-50");
         bookBtn.classList.add("cursor-not-allowed");
         bookBtn.classList.remove("cursor-pointer");
@@ -142,11 +124,6 @@ function showMessage(text, type){
     
 }
 
-// fullName,emailAddress,phoneNumber.addEventListener("click", function(e){
-//    if (cartItems.length === 0) {
-//     showMessage("Please select at least one item.","emptyCart");
-//     }
-// });
 
 bookBtn.addEventListener("click", function(e){
     e.preventDefault();
@@ -185,6 +162,8 @@ bookBtn.addEventListener("click", function(e){
     }
     
 
+    bookBtn.innerText = "";
+    bookBtn.innerText = "Booking...";
     
     const serviceList = cartItems.map((item,i) =>
        ` ${i+1}. ${item.name} - ${item.price}`
@@ -203,7 +182,7 @@ bookBtn.addEventListener("click", function(e){
     
     emailjs.send("service_aoow97q","template_nwrvf1g",completeServiceDetail).then((res) =>{
 
-       
+        
 
     //    console.log(res);
        if(res.text === "OK"){
@@ -222,6 +201,9 @@ bookBtn.addEventListener("click", function(e){
           btn.innerHTML = `<span>Add Item  <i class="fa-solid fa-circle-plus"></i></span>`;
           btn.className = "add-btn flex justify-center items-center gap-2 bg-gray-300 text-black px-6 py-2 rounded-xl cursor-pointer outline-0";
        });
+
+       bookBtn.innerText = "";
+       bookBtn.innerText = "Book Now";
 
        updateCartUI();
        updateBookSericesForm();
