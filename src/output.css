@@ -260,9 +260,6 @@
   .ml-15 {
     margin-left: calc(var(--spacing) * 15);
   }
-  .ml-\[60px\] {
-    margin-left: 60px;
-  }
   .block {
     display: block;
   }
@@ -367,6 +364,9 @@
   }
   .justify-start {
     justify-content: flex-start;
+  }
+  .justify-items-center {
+    justify-items: center;
   }
   .gap-1\.5 {
     gap: calc(var(--spacing) * 1.5);
