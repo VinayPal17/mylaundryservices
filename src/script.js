@@ -29,8 +29,7 @@ function updateCartUI(){
     const emptyMsg = document.getElementById("emptyCartInfo");
     const showItems = document.getElementById("showAddedItem");
     const displayTotal = document.getElementById("displayTotal");
-    let rupeesSym = "₹";
-    let decZero = ".00";
+    
 
     if(cartItems.length === 0){
       emptyMsg.style.display = "grid";
@@ -44,7 +43,7 @@ function updateCartUI(){
                    <tr class="table w-full table-fixed border-b border-gray-400 text-sm font-medium">
                         <td class="text-center pr-3 pt-2 pb-1.5 w-[25%]">${index+1}</td>
                         <td class="text-left pl-0 pt-2 pb-1.5 w-[50%]">${item.name}</td>
-                        <td class="text-right pr-5 pt-2 pb-1.5 w-[25%]">${rupeesSym}${item.price}${decZero}</td>
+                        <td class="text-right pr-5 pt-2 pb-1.5 w-[25%]">₹${item.price}.00</td>
                        
                     </tr>
         
@@ -56,14 +55,7 @@ function updateCartUI(){
 }
 
 
-
-
-    function updateBookSericesForm(){
-
-    const fullName = document.getElementById("fullName");
-    const emailAddress = document.getElementById("emailAddress");
-    const phoneNumber = document.getElementById("phoneNumber");
-    
+function updateBookSericesForm(){
 
     if(cartItems.length !== 0){
         bookBtn.disabled = false;
@@ -76,9 +68,7 @@ function updateCartUI(){
         bookBtn.classList.add("opacity-50");
         bookBtn.classList.add("cursor-not-allowed");
         bookBtn.classList.remove("cursor-pointer");
-        fullName.value="";
-        emailAddress.value="";
-        phoneNumber.value="";
+        
     }
 
 }
