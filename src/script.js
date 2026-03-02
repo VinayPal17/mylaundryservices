@@ -204,6 +204,8 @@ bookBtn.addEventListener("click", function(e){
     }).catch(() => {
 
         showMessage(`${infoSym} Booking Failed!`,"error");
+        bookBtn.innerText = "";
+        bookBtn.innerText = "Book Now";
 
     });
     
